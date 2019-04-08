@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+        <!--
+            #button1 {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: none;
+            }
+            #progress {
+                width: 0px;
+                height: 50px;
+                background-color: black;
+            }
+        -->
+        </style>
+    </head>
+    <body>
+        <button id="button1">
+            <div id="sec"></div>
+        </button>
+        <div id="progress"></div>
+        <script>
+            (function(){
+                var LIMIT = 10;
+                var timer;
+                var count = 0;
+                var progressWidth = 0;
+                var button1 = document.getElementById('button1');
+                button1.oncontextmenu = function () {
+                    return false;
+                }
+
+                var start = function () {
+                    console.log("mousedown");
+                    if (!timer) {
+                        timer = setInterval(counter, 100);
+                    } 
+                }
+
+                var stop = function () {
+                    console.log("mouseup");
+                    clearInterval(timer);
+                    timer = 0;
+                    count = 0;
+                    var sec = document.getElementById('sec');
+                    sec.innerText = LIMIT;
+                    var progress = document.getElementById('progress');
+                    progressWidth = 0;
+                    progress.style.width = progressWidth + 'px';
+                }
+
+                button1.addEventListener('mousedown', start, false);
+                button1.addEventListener('mouseup', stop, false);
+                button1.addEventListener('mouseout', stop, false);
+
+                var counter = function(){
+                    console.log(count++);
+                    var sec = document.getElementById('sec');
+                    sec.innerText = LIMIT - count;
+
+                    var progress = document.getElementById('progress');
+                    progressWidth = progressWidth + 10;
+                    progress.style.width = progressWidth + 'px';
+
+                    if (count > 9) {
+                        progress.style.width = '100px';
+                        sec.innerText = 'OK';
+                        clearInterval(timer);
+                        timer = 0;
+                        count = 0;
+                    }
+                }
+            })();
+        </script>
+    </body>
+</html>
