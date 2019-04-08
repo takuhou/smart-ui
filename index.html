@@ -3,11 +3,20 @@
     <head>
         <style type="text/css">
         <!--
+            #outer-circle {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: 1px solid gray;
+                background: conic-gradient(black 0deg,white 0deg 360deg);
+            }
             #button1 {
                 width: 50px;
                 height: 50px;
                 border-radius: 50%;
                 border: none;
+                margin-top: 5px;
+                margin-left: 5px;
             }
             #progress {
                 width: 0px;
@@ -18,38 +27,43 @@
         </style>
     </head>
     <body>
-        <button id="button1">
-            <div id="sec"></div>
-        </button>
+        <div id="outer-circle">
+            <button id="button1">
+                <div id="sec"></div>
+            </button>
+        </div>
         <div id="progress"></div>
         <script>
             (function(){
-                var LIMIT = 10;
+                var LIMIT = 10000;
+                var INTERVAL = 100;
                 var timer;
                 var count = 0;
-                var progressWidth = 0;
+                var progress = 0;
+                var startTime = 0;
                 var button1 = document.getElementById('button1');
-                button1.oncontextmenu = function () {
-                    return false;
-                }
+                var sec = document.getElementById('sec');
 
                 var start = function () {
-                    console.log("mousedown");
+                    console.log("start");
+                    startTime = new Date().getTime();
                     if (!timer) {
-                        timer = setInterval(counter, 100);
+                        timer = setInterval(counter, INTERVAL);
                     } 
                 }
 
                 var stop = function () {
-                    console.log("mouseup");
+                    console.log("stop");
                     clearInterval(timer);
                     timer = 0;
                     count = 0;
                     var sec = document.getElementById('sec');
-                    sec.innerText = LIMIT;
-                    var progress = document.getElementById('progress');
-                    progressWidth = 0;
-                    progress.style.width = progressWidth + 'px';
+                    sec.innerText = LIMIT / 1000;
+
+                    var outerCircle = document.getElementById('outer-circle');
+                    outerCircle.style.background = 'conic-gradient(red 0deg, white 0deg 360deg)';
+
+                    progress = 0;
                 }
 
                 button1.addEventListener('mousedown', start, false);
@@ -58,21 +72,31 @@
 
                 var counter = function(){
                     console.log(count++);
+                    var now = new Date().getTime();
+
                     var sec = document.getElementById('sec');
-                    sec.innerText = LIMIT - count;
+                    sec.innerText = ((LIMIT - (now-startTime)) / 1000).toFixed(1);
 
-                    var progress = document.getElementById('progress');
-                    progressWidth = progressWidth + 10;
-                    progress.style.width = progressWidth + 'px';
+                    progress = progress + (360 / (LIMIT / 100));
+                    var outerCircle = document.getElementById('outer-circle');
+                    outerCircle.style.background = 'conic-gradient(red ' + progress + 'deg, white 0deg 360deg)';
 
-                    if (count > 9) {
-                        progress.style.width = '100px';
+                    if (LIMIT < now-startTime) {
+                        outerCircle.style.background = 'conic-gradient(red 0deg, green 0deg 360deg)';
                         sec.innerText = 'OK';
                         clearInterval(timer);
                         timer = 0;
                         count = 0;
                     }
                 }
+
+                var init = function () {
+                    sec.innerText = LIMIT / 1000;
+                    button1.oncontextmenu = function () {
+                        return false;
+                    }
+                }
+                init();
             })();
         </script>
     </body>
