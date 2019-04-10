@@ -9,7 +9,6 @@
                 height: 60px;
                 border-radius: 50%;
                 border: 1px solid gray;
-                background: conic-gradient(black 0deg,white 0deg 360deg);
             }
             #button1 {
                 width: 50px;
@@ -64,8 +63,8 @@
                     sec.innerText = LIMIT / 1000;
 
                     var outerCircle = document.getElementById('outer-circle');
-                    if (ua.indexOf('firefox') > 0) {
-                        var svg = "url('" + SMART_UI.black[0] + "')";
+                    if (ua.indexOf('firefox') > 0 || ua.indexOf('edge') > 0 || ua.indexOf('trident') > 0) {
+                        var svg = 'url("' + SMART_UI.black[0] + '")';
                         outerCircle.style.backgroundImage = svg;
                     } else {
                         outerCircle.style.background = 'conic-gradient(black 0deg,white 0deg 360deg)';
@@ -88,16 +87,16 @@
                     progress = progress + (360 / (LIMIT / 100));
                     console.log(progress);
                     var outerCircle = document.getElementById('outer-circle');
-                    if (ua.indexOf('firefox') > 0) {
-                        var svg = "url('" + SMART_UI.black[progress/18] + "')";
+                    if (ua.indexOf('firefox') > 0 || ua.indexOf('edge') > 0 || ua.indexOf('trident') > 0) {
+                        var svg = 'url("' + SMART_UI.black[progress/18] + '")';
                         outerCircle.style.backgroundImage = svg;
                     } else {
                         outerCircle.style.background = 'conic-gradient(red ' + progress + 'deg, white 0deg 360deg)';
                     }                 
                     
                     if (LIMIT < now-startTime) {
-                        if (ua.indexOf('firefox') > 0) {
-                            var svg = "url('" + SMART_UI.black[20] + "')";
+                        if (ua.indexOf('firefox') > 0 || ua.indexOf('edge') > 0 || ua.indexOf('trident') > 0) {
+                            var svg = 'url("' + SMART_UI.black[20] + '")';
                             outerCircle.style.backgroundImage = svg;
                         } else {
                             outerCircle.style.background = 'conic-gradient(red 0deg, green 0deg 360deg)';
@@ -115,8 +114,8 @@
                         return false;
                     }
                     var outerCircle = document.getElementById('outer-circle');
-                    if (ua.indexOf('firefox') > 0) {
-                        var svg = "url('" + SMART_UI.black[0] + "')";
+                    if (ua.indexOf('firefox') > 0 || ua.indexOf('edge') > 0 || ua.indexOf('trident') > 0) {
+                        var svg = 'url("' + SMART_UI.black[0] + '")';
                         outerCircle.style.backgroundImage = svg;
                     } else {
                         outerCircle.style.background = 'conic-gradient(black 0deg,white 0deg 360deg)';
