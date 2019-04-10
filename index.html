@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="svg.js"></script>
         <style type="text/css">
         <!--
             #outer-circle {
@@ -17,6 +18,7 @@
                 border: none;
                 margin-top: 5px;
                 margin-left: 5px;
+                outline: none;
             }
             #progress {
                 width: 0px;
@@ -35,7 +37,7 @@
         <div id="progress"></div>
         <script>
             (function(){
-                var LIMIT = 10000;
+                var LIMIT = 2000;
                 var INTERVAL = 100;
                 var timer;
                 var count = 0;
@@ -43,6 +45,7 @@
                 var startTime = 0;
                 var button1 = document.getElementById('button1');
                 var sec = document.getElementById('sec');
+                var ua = window.navigator.userAgent.toLowerCase();
 
                 var start = function () {
                     console.log("start");
@@ -61,7 +64,12 @@
                     sec.innerText = LIMIT / 1000;
 
                     var outerCircle = document.getElementById('outer-circle');
-                    outerCircle.style.background = 'conic-gradient(red 0deg, white 0deg 360deg)';
+                    if (ua.indexOf('firefox') > 0) {
+                        var svg = "url('" + SMART_UI.black[0] + "')";
+                        outerCircle.style.backgroundImage = svg;
+                    } else {
+                        outerCircle.style.background = 'conic-gradient(black 0deg,white 0deg 360deg)';
+                    }
 
                     progress = 0;
                 }
@@ -78,11 +86,22 @@
                     sec.innerText = ((LIMIT - (now-startTime)) / 1000).toFixed(1);
 
                     progress = progress + (360 / (LIMIT / 100));
+                    console.log(progress);
                     var outerCircle = document.getElementById('outer-circle');
-                    outerCircle.style.background = 'conic-gradient(red ' + progress + 'deg, white 0deg 360deg)';
-
+                    if (ua.indexOf('firefox') > 0) {
+                        var svg = "url('" + SMART_UI.black[progress/18] + "')";
+                        outerCircle.style.backgroundImage = svg;
+                    } else {
+                        outerCircle.style.background = 'conic-gradient(red ' + progress + 'deg, white 0deg 360deg)';
+                    }                 
+                    
                     if (LIMIT < now-startTime) {
-                        outerCircle.style.background = 'conic-gradient(red 0deg, green 0deg 360deg)';
+                        if (ua.indexOf('firefox') > 0) {
+                            var svg = "url('" + SMART_UI.black[20] + "')";
+                            outerCircle.style.backgroundImage = svg;
+                        } else {
+                            outerCircle.style.background = 'conic-gradient(red 0deg, green 0deg 360deg)';
+                        }
                         sec.innerText = 'OK';
                         clearInterval(timer);
                         timer = 0;
@@ -94,6 +113,13 @@
                     sec.innerText = LIMIT / 1000;
                     button1.oncontextmenu = function () {
                         return false;
+                    }
+                    var outerCircle = document.getElementById('outer-circle');
+                    if (ua.indexOf('firefox') > 0) {
+                        var svg = "url('" + SMART_UI.black[0] + "')";
+                        outerCircle.style.backgroundImage = svg;
+                    } else {
+                        outerCircle.style.background = 'conic-gradient(black 0deg,white 0deg 360deg)';
                     }
                 }
                 init();
