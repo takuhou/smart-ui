@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <script src="boring-decision.js"></script>
+    </head>
+    <body>
+        <div id="boring-decision"></div>
+        <script>
+            var callback = function () {
+                console.log("callback");
+            }
+            var boringDecision = new BoringDecition(callback);
+            boringDecision.init();
+        </script>
+    </body>
+</html>
