@@ -1,7 +1,7 @@
 const presets =  [
-    ["@babel/preset-env", {
-        "useBuiltIns": "entry"
-    }]
+  ["@babel/preset-env", {
+    "useBuiltIns": "entry"
+  }]
 ];
 const plugins = ["@babel/plugin-proposal-class-properties"];
-module.exports = { presets, plugins }
+module.exports = { presets, plugins };
