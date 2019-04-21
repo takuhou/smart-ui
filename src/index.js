@@ -8,6 +8,7 @@ export default class BoringDecision {
     this.endColor = settings.endColor || "white";
     this.size = settings.size || 100;
     this.targetDom = document.getElementById("boring-decision");
+    this.callback = settings.callback;
     this.startTime = 0;
     this.timer = null;
     this.interval = 100;
@@ -31,8 +32,7 @@ export default class BoringDecision {
     if (Utils.hasConicGradient()) {
       outerCircle.style.background = `conic-gradient(${this.startColor} 0deg, white 0deg 360deg)`;
     } else {
-    // svg.jsを使う
-      const svg = 'url("' + Svg.black[0] + '")';
+      const svg = "url('" + Svg.black[0] + "')";
       outerCircle.style.backgroundImage = svg;
     }
     this.progress = 0;
@@ -49,24 +49,24 @@ export default class BoringDecision {
     if (Utils.hasConicGradient()) {
       outerCircle.style.background = `conic-gradient(${this.startColor} ${this.progress}deg, white 0deg 360deg)`;
     } else {
-      // svg.jsを使う
-      const svg = 'url("' + Svg.black[this.progress/18] + '")';
+      const svg = "url('" + Svg.black[this.progress/18] + "')";
       outerCircle.style.backgroundImage = svg;
     }
+
+    this.callback("exec now");
 
     if (this.limit < now - this.startTime) {
       if (Utils.hasConicGradient()) {
         outerCircle.style.background = `conic-gradient(${this.startColor} 0deg, ${this.endColor} 0deg 360deg)`;
       } else {
-        // svg.jsを使う
-        const svg = 'url("' + Svg.black[20] + '")';
+        const svg = "url('" + Svg.black[20] + "')";
         outerCircle.style.backgroundImage = svg;
       }
 
       sec.innerText = 'OK';
       clearInterval(this.timer);
       this.timer = null;
-      // callbackFunction();
+      this.callback("end");
     }
   }
 

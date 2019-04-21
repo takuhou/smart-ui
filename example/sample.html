@@ -3,6 +3,13 @@
     <head>
     </head>
     <body>
+        <div id="select"></div>
+        <script>
+            window.select = function(text) {
+                var selectDom = document.getElementById("select");
+                selectDom.innerText = text;
+            }
+        </script>
         <script src="../dist/main.js"></script>
         <div id="boring-decision"></div>
         <script>
@@ -10,7 +17,8 @@
                 limit : 2000,
                 startColor : "black",
                 endColor : "green",
-                size: 200
+                size: 100,
+                callback: window.select
             });
             boringDecision.init();
         </script>
