@@ -4,14 +4,20 @@
   "description": "description",
   "main": "src/index.js",
   "dependencies": {
+    "assert": "^1.4.1",
+    "chai": "^4.2.0",
     "core-js": "^2.6.5",
-    "eslint": "^5.16.0"
+    "eslint": "^5.16.0",
+    "jsdom": "^15.0.0",
+    "mocha": "^6.1.4",
+    "mocha-webpack": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "eslint-loader": "^2.1.2",
@@ -19,7 +25,7 @@
     "webpack-cli": "^3.3.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha-webpack --webpack-config webpack.config.js test/*.spec.js",
     "build": "webpack",
     "babel": "./node_modules/.bin/babel src --out-dir dist"
   },
