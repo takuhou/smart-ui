@@ -8,7 +8,9 @@
     "chai": "^4.2.0",
     "core-js": "^2.6.5",
     "eslint": "^5.16.0",
+    "global": "^4.3.2",
     "jsdom": "^15.0.0",
+    "jsdom-global": "^3.0.2",
     "mocha": "^6.1.4",
     "mocha-webpack": "^1.1.0"
   },
